@@ -3,10 +3,13 @@ import useInfiniteScroll from "./useInfiniteScroll";
 
 const List2 = () => {
   const [listItems, setListItems] = useState(Array.from(Array(30).keys(), n => n + 1));
-  const isFetching = useInfiniteScroll(fetchMoreListItems);
+  const [isFetching, setIsFetching] = useInfiniteScroll(fetchMoreListItems);
 
   function fetchMoreListItems() {
-    setListItems(prevState => ([...prevState, ...Array.from(Array(20).keys(), n => n + prevState.length + 1)]));
+    setTimeout(() => {
+      setListItems(prevState => ([...prevState, ...Array.from(Array(20).keys(), n => n + prevState.length + 1)]));
+      setIsFetching(false);
+    }, 2000);
   }
 
   return (
