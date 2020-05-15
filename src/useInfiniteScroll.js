@@ -4,6 +4,10 @@ const useInfiniteScroll = (callback) => {
   const [isFetching, setIsFetching] = useState(false);
 
   useEffect(() => {
+    function handleScroll() {
+      if (Math.ceil(window.innerHeight + document.documentElement.scrollTop) !== document.documentElement.offsetHeight || isFetching) return;
+      setIsFetching(true);
+    }
     window.addEventListener('scroll', handleScroll);
     return () => window.removeEventListener('scroll', handleScroll);
   }, []);
@@ -12,11 +16,6 @@ const useInfiniteScroll = (callback) => {
     if (!isFetching) return;
     callback();
   }, [isFetching]);
-
-  function handleScroll() {
-    if (window.innerHeight + document.documentElement.scrollTop !== document.documentElement.offsetHeight || isFetching) return;
-    setIsFetching(true);
-  }
 
   return [isFetching, setIsFetching];
 };
