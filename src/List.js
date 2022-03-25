@@ -29,7 +29,7 @@ const List = () => {
   return (
     <>
       <ul className="list-group mb-2">
-        {listItems.map(listItem => <li className="list-group-item">List Item {listItem}</li>)}
+        {listItems.map((listItem, item) => <li key={item} className="list-group-item">List Item {listItem}</li>)}
       </ul>
       {isFetching && 'Fetching more list items...'}
     </>
